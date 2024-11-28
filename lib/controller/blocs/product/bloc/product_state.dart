@@ -7,7 +7,7 @@
 
 part of 'product_bloc.dart';
 
-@immutable
+// @immutable
 sealed class ProductState {}
 
 final class ProductInitial extends ProductState {}

@@ -1,5 +1,9 @@
+
 import 'package:flutter/material.dart';
 
+import '../cart_page.dart/cartpage.dart';
+import '../product/product_page.dart';
+import '../profile_page/profile.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -13,9 +17,9 @@ class MainPageState extends State<MainPage> {
   final PageController _pageController = PageController();
 
   final List<Widget> _pages = [
-    // const ProductPage(),
-    // const CartPage(),
-    // const ProfilePage(),
+    const ProductPage(),
+    const CartPage(),
+     const ProfilePage(),
   ];
 
   @override
@@ -45,14 +49,14 @@ class MainPageState extends State<MainPage> {
       body: SafeArea(
         child: Stack(
           children: [
-            // Main Content
+            
             PageView(
               controller: _pageController,
               onPageChanged: _onPageChanged,
               children: _pages,
             ),
 
-            // Custom Navigation
+            
             Positioned(
               bottom: 20,
               left: 20,
@@ -64,7 +68,7 @@ class MainPageState extends State<MainPage> {
                   borderRadius: BorderRadius.circular(35),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
+                      color: Colors.black.withAlpha((0.05 * 255).toInt()) ,
                       blurRadius: 10,
                       offset: const Offset(0, 5),
                     ),
@@ -81,52 +85,6 @@ class MainPageState extends State<MainPage> {
               ),
             ),
 
-            // Top Bar
-            Positioned(
-              top: 0,
-              left: 0,
-              right: 0,
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                color: Colors.white,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          _getPageTitle(),
-                          style: const TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          _getPageSubtitle(),
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.grey[600],
-                          ),
-                        ),
-                      ],
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: Colors.grey[100],
-                        shape: BoxShape.circle,
-                      ),
-                      child: Icon(
-                        _getActionIcon(),
-                        size: 24,
-                        color: Colors.black87,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
           ],
         ),
       ),
@@ -141,7 +99,9 @@ class MainPageState extends State<MainPage> {
         padding: const EdgeInsets.symmetric(horizontal: 20),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(25),
-          color: isSelected ? Colors.black.withOpacity(0.05) : Colors.transparent,
+          color: isSelected
+              ? Colors.black.withAlpha((0.05 * 255).toInt())
+              : Colors.transparent,
         ),
         child: Row(
           children: [
@@ -166,42 +126,5 @@ class MainPageState extends State<MainPage> {
     );
   }
 
-  String _getPageTitle() {
-    switch (_currentPage) {
-      case 0:
-        return 'Discover';
-      case 1:
-        return 'My Cart';
-      case 2:
-        return 'Profile';
-      default:
-        return '';
-    }
-  }
-
-  String _getPageSubtitle() {
-    switch (_currentPage) {
-      case 0:
-        return 'Find your favorite products';
-      case 1:
-        return 'Review your items';
-      case 2:
-        return 'Personal information';
-      default:
-        return '';
-    }
-  }
-
-  IconData _getActionIcon() {
-    switch (_currentPage) {
-      case 0:
-        return Icons.search_rounded;
-      case 1:
-        return Icons.delete_outline_rounded;
-      case 2:
-        return Icons.settings_rounded;
-      default:
-        return Icons.search_rounded;
-    }
-  }
+ 
 }
